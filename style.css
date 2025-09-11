@@ -136,6 +136,57 @@ hr.light-100 {
   height: 60px;
 }
 
+/* Dynamic Elements Testing Styles */
+.dynamic-controls {
+  margin-bottom: 2rem;
+}
+
+.dynamic-controls .btn {
+  margin: 0.25rem;
+}
+
+.dynamic-test-element {
+  border: 2px dashed #007bff !important;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.dynamic-test-element::before {
+  content: "DYNAMIC ELEMENT";
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  background: #007bff;
+  color: white;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 3px;
+  z-index: 10;
+}
+
+.dynamic-test-element:hover {
+  border-color: #0056b3 !important;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+#dynamic-elements-container {
+  min-height: 100px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  margin: 1rem 0;
+}
+
+#dynamic-elements-container:empty::after {
+  content: "No dynamic elements yet. Use the buttons above to add some!";
+  display: block;
+  text-align: center;
+  color: #6c757d;
+  font-style: italic;
+  padding: 2rem;
+}
+
 
 /*---Media Queries --*/
 @media (max-width: 1500px){

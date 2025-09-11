@@ -273,6 +273,32 @@ f=false,w=window,d=document,v=d.querySelector('#vwoCode'),cK='_vwo_'+account_id+
 	<hr class="my-4">
 </div>
 
+<!--- Dynamic Elements Testing Section -->
+<div class="container-fluid padding" data-aos="fade-up"
+		data-aos-offset="200"
+		data-aos-delay="50"
+		data-aos-duration="1000">
+	<div class="row text-center padding">
+		<div class="col-12">
+			<h2>Dynamic Elements Testing</h2>
+			<p class="lead">Use these controls to add dynamic elements for testing "Element in View" segmentation</p>
+		</div>
+		<div class="col-12">
+			<div class="dynamic-controls mb-4">
+				<button type="button" class="btn btn-primary mr-2" onclick="addDynamicCard()">Add Dynamic Card</button>
+				<button type="button" class="btn btn-success mr-2" onclick="addDynamicBanner()">Add Dynamic Banner</button>
+				<button type="button" class="btn btn-warning mr-2" onclick="addDynamicText()">Add Dynamic Text</button>
+				<button type="button" class="btn btn-danger" onclick="clearDynamicElements()">Clear All Dynamic Elements</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--- Dynamic Elements Container -->
+<div id="dynamic-elements-container" class="container-fluid padding">
+	<!-- Dynamic elements will be added here -->
+</div>
+
 <!--- Connect -->
 <div class="container-fluid padding">
 	<div class="row text-center padding">
@@ -333,6 +359,130 @@ f=false,w=window,d=document,v=d.querySelector('#vwoCode'),cK='_vwo_'+account_id+
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
 AOS.init();
+</script>
+
+<!-- Dynamic Elements JavaScript -->
+<script>
+let dynamicElementCounter = 0;
+
+// Function to add a dynamic card element
+function addDynamicCard() {
+    dynamicElementCounter++;
+    const container = document.getElementById('dynamic-elements-container');
+    
+    const cardElement = document.createElement('div');
+    cardElement.className = 'row padding';
+    cardElement.innerHTML = `
+        <div class="col-md-4">
+            <div class="card dynamic-test-element" id="dynamic-card-${dynamicElementCounter}" data-vwo-test="dynamic-card">
+                <img class="card-img-top" src="img/team1.png" alt="Dynamic Card ${dynamicElementCounter}">
+                <div class="card-body">
+                    <h4 class="card-title">Dynamic Card ${dynamicElementCounter}</h4>
+                    <p class="card-text">This is a dynamically created card element for testing "Element in View" segmentation. Created at: ${new Date().toLocaleTimeString()}</p>
+                    <a href="#" class="btn btn-outline-secondary">Dynamic Action</a>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    container.appendChild(cardElement);
+    
+    // Add AOS animation to the new element
+    AOS.refresh();
+    
+    console.log(`Dynamic card ${dynamicElementCounter} added for VWO testing`);
+}
+
+// Function to add a dynamic banner element
+function addDynamicBanner() {
+    dynamicElementCounter++;
+    const container = document.getElementById('dynamic-elements-container');
+    
+    const bannerElement = document.createElement('div');
+    bannerElement.className = 'row padding';
+    bannerElement.innerHTML = `
+        <div class="col-12">
+            <div class="jumbotron dynamic-test-element" id="dynamic-banner-${dynamicElementCounter}" data-vwo-test="dynamic-banner" style="background: linear-gradient(45deg, #ff6b6b, #4ecdc4); color: white;">
+                <h1 class="display-4">Dynamic Banner ${dynamicElementCounter}</h1>
+                <p class="lead">This is a dynamically created banner element for testing "Element in View" segmentation.</p>
+                <p>Created at: ${new Date().toLocaleTimeString()}</p>
+                <a class="btn btn-light btn-lg" href="#" role="button">Dynamic CTA</a>
+            </div>
+        </div>
+    `;
+    
+    container.appendChild(bannerElement);
+    
+    // Add AOS animation to the new element
+    AOS.refresh();
+    
+    console.log(`Dynamic banner ${dynamicElementCounter} added for VWO testing`);
+}
+
+// Function to add a dynamic text element
+function addDynamicText() {
+    dynamicElementCounter++;
+    const container = document.getElementById('dynamic-elements-container');
+    
+    const textElement = document.createElement('div');
+    textElement.className = 'row padding';
+    textElement.innerHTML = `
+        <div class="col-12">
+            <div class="dynamic-test-element" id="dynamic-text-${dynamicElementCounter}" data-vwo-test="dynamic-text" style="background-color: #f8f9fa; padding: 2rem; border-radius: 10px; border-left: 5px solid #007bff;">
+                <h3>Dynamic Text Block ${dynamicElementCounter}</h3>
+                <p>This is a dynamically created text element for testing "Element in View" segmentation. This element contains multiple paragraphs to make it more substantial for viewport testing.</p>
+                <p>Created at: ${new Date().toLocaleTimeString()}</p>
+                <p>This element can be used to test whether VWO can detect when dynamically added content comes into view. The element has a unique ID and data attributes that can be targeted in your VWO campaigns.</p>
+                <ul>
+                    <li>Element ID: dynamic-text-${dynamicElementCounter}</li>
+                    <li>Data attribute: data-vwo-test="dynamic-text"</li>
+                    <li>Creation time: ${new Date().toLocaleString()}</li>
+                </ul>
+            </div>
+        </div>
+    `;
+    
+    container.appendChild(textElement);
+    
+    // Add AOS animation to the new element
+    AOS.refresh();
+    
+    console.log(`Dynamic text ${dynamicElementCounter} added for VWO testing`);
+}
+
+// Function to clear all dynamic elements
+function clearDynamicElements() {
+    const container = document.getElementById('dynamic-elements-container');
+    container.innerHTML = '';
+    dynamicElementCounter = 0;
+    console.log('All dynamic elements cleared');
+}
+
+// Function to add a random dynamic element (for automated testing)
+function addRandomDynamicElement() {
+    const functions = [addDynamicCard, addDynamicBanner, addDynamicText];
+    const randomFunction = functions[Math.floor(Math.random() * functions.length)];
+    randomFunction();
+}
+
+// Auto-add some dynamic elements after page load for testing
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Dynamic elements testing system initialized');
+    console.log('Available functions: addDynamicCard(), addDynamicBanner(), addDynamicText(), clearDynamicElements()');
+    
+    // Optional: Auto-add one element after 3 seconds for demonstration
+    setTimeout(() => {
+        console.log('Auto-adding a sample dynamic element for testing...');
+        addDynamicText();
+    }, 3000);
+});
+
+// Expose functions globally for easy testing in console
+window.addDynamicCard = addDynamicCard;
+window.addDynamicBanner = addDynamicBanner;
+window.addDynamicText = addDynamicText;
+window.clearDynamicElements = clearDynamicElements;
+window.addRandomDynamicElement = addRandomDynamicElement;
 </script>
 
 </body>
