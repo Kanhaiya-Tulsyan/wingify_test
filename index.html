@@ -22,6 +22,29 @@
 <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
 <!-- <script src="//hemant-1451.github.io/HK/SmartCode2.1/vwo_static.js"></script> -->
 <!-- Start VWO Async SmartCode -->
+	<!-- Your custom code (Code-1) -->
+<script>
+(function() {
+  window._vwo_evq = window._vwo_evq || [];
+  var _vwoOldPush = window._vwo_evq.push;
+
+  window._vwo_evq.push = function() {
+    var eventData = arguments[0],
+        willRedirectionOccur;
+
+    if (eventData[0] === 'rD') {
+      willRedirectionOccur = eventData[1];
+      window.willRedirectionOccurByVWO = willRedirectionOccur;
+
+      if (!willRedirectionOccur) {
+        console.log("no redirec occur");
+      }
+    }
+
+    _vwoOldPush.apply(window._vwo_evq, [].slice.call(arguments));
+  };
+})();
+</script>
 <link rel="preconnect" href="https://dev.visualwebsiteoptimizer.com" />
 <script type="text/javascript">
      const params = new URLSearchParams(window.location.search);
